@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Fawwaz Al-Fatih // SMKN 54 Jakarta Pusat - TKJ Portfolio</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        qdark: {
+                            bg: '#0B0F17',
+                            card: '#111827',
+                            border: 'rgba(0, 240, 255, 0.2)'
+                        },
+                        qcyan: '#00F0FF',
+                        qviolet: '#8B5CF6',
+                        qemerald: '#10B981',
+                        qamber: '#F59E0B',
+                        qrose: '#F43F5E'
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B0F17;
+            color: #E2E8F0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Cyber Card */
+        .holo-card {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 240, 255, 0.18);
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .holo-card:hover {
+            border-color: rgba(0, 240, 255, 0.45);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+        }
+
+        .holo-card-violet:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.25);
+        }
+
+        .holo-card-emerald:hover {
+            border-color: rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+        }
+
+        .holo-card-rose:hover {
+            border-color: rgba(244, 63, 94, 0.5);
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.25);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 7px; height: 7px; }
+        ::-webkit-scrollbar-track { background: #0B0F17; }
+        ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; border: 1px solid rgba(0,240,255,0.2); }
+        ::-webkit-scrollbar-thumb:hover { background: #00F0FF; }
+
+        /* Skill Tab Filter Active State */
+        .skill-tab-btn.active {
+            background-color: #00F0FF;
+            color: #0B0F17;
+            font-weight: 800;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-qdark-bg antialiased text-slate-200 min-h-screen flex flex-col justify-between relative selection:bg-qcyan selection:text-slate-950">
+
+    <!-- Canvas Particle Network Background -->
+    <canvas id="quantum-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-30"></canvas>
+
+    <!-- 1. STICKY NAVIGATION BAR -->
+    <header class="fixed top-4 inset-x-0 z-50 max-w-6xl mx-auto px-4">
+        <nav class="holo-card rounded-2xl px-5 py-3 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#beranda" onclick="triggerAudio('click')" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-qcyan/10 border border-qcyan flex items-center justify-center text-qcyan font-orbitron font-extrabold text-lg group-hover:bg-qcyan group-hover:text-slate-950 transition-all shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                    AF
+                </div>
+                <div>
+                    <span class="font-orbitron font-bold text-white tracking-wider block text-sm">FAWWAZ<span class="text-qcyan">.NET</span></span>
+                    <span class="text-[10px] text-slate-400 font-mono flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-qemerald animate-pulse"></span> TKJ SMKN 54 JAKARTA
+                    </span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu Links -->
+            <div class="hidden lg:flex items-center gap-1 text-xs font-semibold text-slate-300">
+                <a href="#beranda" onclick="triggerAudio('click')" class="px-3 py-2 rounded-lg hover:text-qcyan hover:bg-qcyan/10 transition-all">Beranda</a>
+                <a href="#edukasi" onclick="triggerAudio('click')" class="px-3 py-2 rounded-lg hover:text-qcyan hover:bg-qcyan/10 transition-all">Pendidikan</a>
+                <a href="#teknologi" onclick="triggerAudio('click')" class="px-3 py-2 rounded-lg hover:text-qcyan hover:bg-qcyan/10 transition-all">Teknologi</a>
+                <a href="#keahlian" onclick="triggerAudio('click')" class="px-3 py-2 rounded-lg hover:text-qcyan hover:bg-qcyan/10 transition-all">Keahlian</a>
+                <a href="#organisasi" onclick="triggerAudio('click')" class="px-3 py-2 rounded-lg hover:text-qcyan hover:bg-qcyan/10 transition-all">Organisasi</a>
+                <a href="#evaluasi" onclick="triggerAudio('click')" class="px-3 py-2 rounded-lg hover:text-qcyan hover:bg-qcyan/10 transition-all">Evaluasi Diri</a>
+                <a href="#smkn54" onclick="triggerAudio('click')" class="px-3 py-2 rounded-lg hover:text-qcyan hover:bg-qcyan/10 transition-all">SMKN 54</a>
+                <a href="#kontak" onclick="triggerAudio('click')" class="px-3 py-2 rounded-lg hover:text-qcyan hover:bg-qcyan/10 transition-all">Kontak</a>
+            </div>
+
+            <!-- Right Controls -->
+            <div class="flex items-center gap-2">
+                <button id="sound-toggle-btn" onclick="toggleAudioEngine()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-qcyan text-xs font-mono font-bold hover:border-qcyan transition-all flex items-center gap-2">
+                    <i id="sound-icon" class="fa-solid fa-volume-high text-qemerald"></i>
+                    <span id="sound-status-text" class="hidden sm:inline">SFX: ON</span>
+                </button>
+
+                <button onclick="toggleMobileMenu(); triggerAudio('click')" class="lg:hidden p-2 rounded-xl border border-slate-700 text-qcyan hover:bg-slate-800">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-2 holo-card rounded-2xl p-4 space-y-2 text-sm font-medium z-50">
+            <a href="#beranda" onclick="toggleMobileMenu(); triggerAudio('click')" class="block p-2 rounded hover:bg-qcyan/10 text-slate-200 hover:text-qcyan">Beranda</a>
+            <a href="#edukasi" onclick="toggleMobileMenu(); triggerAudio('click')" class="block p-2 rounded hover:bg-qcyan/10 text-slate-200 hover:text-qcyan">Perjalanan Pendidikan</a>
+            <a href="#teknologi" onclick="toggleMobileMenu(); triggerAudio('click')" class="block p-2 rounded hover:bg-qcyan/10 text-slate-200 hover:text-qcyan">Mengenal Teknologi</a>
+            <a href="#keahlian" onclick="toggleMobileMenu(); triggerAudio('click')" class="block p-2 rounded hover:bg-qcyan/10 text-slate-200 hover:text-qcyan">Keahlian Saya</a>
+            <a href="#organisasi" onclick="toggleMobileMenu(); triggerAudio('click')" class="block p-2 rounded hover:bg-qcyan/10 text-slate-200 hover:text-qcyan">Organisasi & Ekstrakurikuler</a>
+            <a href="#evaluasi" onclick="toggleMobileMenu(); triggerAudio('click')" class="block p-2 rounded hover:bg-qcyan/10 text-slate-200 hover:text-qcyan">Evaluasi Diri</a>
+            <a href="#smkn54" onclick="toggleMobileMenu(); triggerAudio('click')" class="block p-2 rounded hover:bg-qcyan/10 text-slate-200 hover:text-qcyan">Profil SMKN 54</a>
+            <a href="#kontak" onclick="toggleMobileMenu(); triggerAudio('click')" class="block p-2 rounded hover:bg-qcyan/10 text-slate-200 hover:text-qcyan">Kontak</a>
+        </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section id="beranda" class="pt-32 pb-16 max-w-6xl mx-auto px-4 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-7 space-y-6">
+                <!-- Status Badge -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-qemerald/10 border border-qemerald/40 text-qemerald text-xs font-mono font-semibold">
+                    <span class="w-2.5 h-2.5 rounded-full bg-qemerald animate-ping"></span>
+                    <span>TKJ STUDENT & NETWORK ENTHUSIAST 🟢</span>
+                </div>
+
+                <div class="space-y-2">
+                    <h1 class="text-3xl sm:text-5xl font-orbitron font-black text-white leading-tight">
+                        Ahmad Fawwaz <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-qcyan via-qviolet to-qemerald">
+                            Al-Fatih
+                        </span>
+                    </h1>
+                    <p class="text-base sm:text-lg font-semibold text-slate-300 font-mono">
+                        Siswa Teknik Komputer dan Jaringan (TKJ) — SMKN 54 Jakarta Pusat
+                    </p>
+                </div>
+
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                    Halo! Saya Fawwaz, seorang pelajar yang berdedikasi tinggi dalam memahami cara kerja dunia internet, infrastruktur jaringan komputer, sistem operasi server, hingga instalasi keamanan fisik seperti CCTV. Mari jelajahi perjalanan belajar dan keahlian teknis saya di bawah ini.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="#edukasi" onclick="triggerAudio('click')" class="px-6 py-3.5 rounded-xl bg-qcyan text-slate-950 font-orbitron font-extrabold text-xs tracking-wider hover:brightness-110 shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap"></i> Jelajahi Profil & Edukasi
+                    </a>
+                    <a href="#kontak" onclick="triggerAudio('click')" class="px-6 py-3.5 rounded-xl holo-card text-qemerald border-qemerald/40 font-orbitron font-bold text-xs tracking-wider hover:bg-qemerald/10 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Hubungi Saya
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Focus Overview Card -->
+            <div class="lg:col-span-5">
+                <div class="holo-card rounded-2xl p-6 space-y-5 border-qcyan/30">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+                            <i class="fa-solid fa-address-card text-qcyan"></i>
+                            <span>STUDENT SPECIFICATION</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-qcyan/20 text-qcyan border border-qcyan/30">TKJ CLASS</span>
+                    </div>
+
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+                            <span class="text-slate-400">INSTANSI</span>
+                            <span class="text-white font-bold">SMKN 54 JAKARTA PUSAT</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+                            <span class="text-slate-400">JURUSAN</span>
+                            <span class="text-qcyan font-bold">TEKNIK KOMPUTER & JARINNGAN</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+                            <span class="text-slate-400">KEAHLIAN UTAMA</span>
+                            <span class="text-qviolet font-bold">ROUTER & SERVER SYSADMIN</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+                            <span class="text-slate-400">AKTIVITAS ORGANISASI</span>
+                            <span class="text-qemerald font-bold">PASKIBRA & OSIS</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                        <span>STATUS BEKERJA SAMA:</span>
+                        <span class="text-qemerald font-bold flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-qemerald animate-pulse"></span> SIAP TIM & ADAPTIF
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. PERJALANAN JENJANG PENDIDIKAN -->
+    <section id="edukasi" class="py-16 max-w-6xl mx-auto px-4 relative z-10 space-y-8">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+            <span class="text-qcyan text-xs font-mono font-bold tracking-widest uppercase">// ACADEMIC TIMELINE</span>
+            <h2 class="text-3xl font-orbitron font-extrabold text-white">Perjalanan Jenjang Pendidikan</h2>
+            <p class="text-slate-400 text-sm">
+                Tahapan sekolah yang membentuk karakter akademis, kepemimpinan, dan minat saya di bidang teknologi:
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            
+            <!-- SD Card -->
+            <div onclick="openEduModal('sd')" class="holo-card rounded-2xl p-6 cursor-pointer group space-y-4 border-slate-800 hover:border-qcyan transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/30 font-mono text-[11px] font-bold">SEKOLAH DASAR</span>
+                    <i class="fa-solid fa-school-flag text-slate-500 group-hover:text-qcyan transition-colors text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-orbitron font-bold text-white group-hover:text-qcyan transition-colors">SDN Warakas 07</h3>
+                    <p class="text-xs text-slate-400 font-mono mt-1">Masa Pendidikan Dasar</p>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Masa penting dalam pembentukan karakter awal, menanamkan kedisiplinan dasar, kejujuran, dan landasan akademis dasar.
+                </p>
+                <div class="pt-2 text-[11px] font-mono text-qcyan flex items-center gap-1">
+                    <span>Lihat Rincian Memori</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </div>
+            </div>
+
+            <!-- SMP Card -->
+            <div onclick="openEduModal('smp')" class="holo-card holo-card-violet rounded-2xl p-6 cursor-pointer group space-y-4 border-slate-800 hover:border-qviolet transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="px-2.5 py-1 rounded-full bg-qviolet/10 text-qviolet border border-qviolet/30 font-mono text-[11px] font-bold">SEKOLAH MENENGAH PERTAMA</span>
+                    <i class="fa-solid fa-book-bookmark text-slate-500 group-hover:text-qviolet transition-colors text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-orbitron font-bold text-white group-hover:text-qviolet transition-colors">SMPN 129 Jakarta</h3>
+                    <p class="text-xs text-slate-400 font-mono mt-1">Masa Eksplorasi Minat</p>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Tahap mulai mengeksplorasi minat dalam dunia komputer, melatih sosialisasi interaktif, serta awal ketertarikan pada organisasi.
+                </p>
+                <div class="pt-2 text-[11px] font-mono text-qviolet flex items-center gap-1">
+                    <span>Lihat Rincian Memori</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </div>
+            </div>
+
+            <!-- SMK Card -->
+            <div onclick="openEduModal('smk')" class="holo-card holo-card-emerald rounded-2xl p-6 cursor-pointer group space-y-4 border-qemerald/40 hover:border-qemerald transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="px-2.5 py-1 rounded-full bg-qemerald/10 text-qemerald border border-qemerald/30 font-mono text-[11px] font-bold">SEKOLAH MENENGAH KEJURUAN</span>
+                    <i class="fa-solid fa-laptop-code text-qemerald text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-orbitron font-bold text-white group-hover:text-qemerald transition-colors">SMKN 54 Jakarta Pusat</h3>
+                    <p class="text-xs text-qemerald font-mono mt-1">Fokus: Teknik Komputer & Jaringan</p>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Masa penempaan keahlian profesional vokasi TKJ: fokus penuh pada jaringan komputer, router MikroTik/Cisco, server Debian, dan CCTV.
+                </p>
+                <div class="pt-2 text-[11px] font-mono text-qemerald flex items-center gap-1">
+                    <span>Lihat Rincian Memori</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. PENGENALAN TEKNOLOGI & ISTILAH JARINGAN -->
+    <section id="teknologi" class="py-16 max-w-6xl mx-auto px-4 relative z-10 space-y-8">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+            <span class="text-qcyan text-xs font-mono font-bold tracking-widest uppercase">// NETWORK KNOWLEDGE BASE</span>
+            <h2 class="text-3xl font-orbitron font-extrabold text-white">Mengenal Teknologi Jaringan</h2>
+            <p class="text-slate-400 text-sm">
+                Penjelasan komunikatif dan mendalam mengenai pilar teknologi infrastruktur IT yang saya pelajari:
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <!-- 1. MikroTik -->
+            <div class="holo-card rounded-2xl p-6 space-y-4 border-qcyan/30">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+                    <div class="w-12 h-12 rounded-xl bg-qcyan/10 border border-qcyan/40 text-qcyan flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-router"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-orbitron font-bold text-white">Apa itu MikroTik?</h3>
+                        <p class="text-xs text-qcyan font-mono">Perangkat Gateway & RouterOS Management</p>
+                    </div>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    <strong class="text-white">MikroTik</strong> adalah nama perusahaan sekaligus merek sistem operasi (<strong class="text-qcyan">RouterOS</strong>) dan perangkat keras (<strong class="text-qcyan">RouterBoard</strong>) yang dirancang khusus untuk mengelola lalu lintas jaringan internet. 
+                </p>
+                <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5 text-xs text-slate-300">
+                    <div class="text-qcyan font-mono font-bold">// FUNGSI UTAMA YANG SAYA PELAJARI:</div>
+                    <p>• Mengambil koneksi internet dari ISP lalu menyebarkannya secara aman ke pengguna lokal (LAN/WiFi).</p>
+                    <p>• Manajemen pembagian kecepatan internet (Bandwidth Limiting via Simple Queue).</p>
+                    <p>• Pembuatan akses internet berbayar/voucher menggunakan sistem Captive Portal Hotspot.</p>
+                </div>
+            </div>
+
+            <!-- 2. Cisco -->
+            <div class="holo-card holo-card-violet rounded-2xl p-6 space-y-4 border-qviolet/30">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+                    <div class="w-12 h-12 rounded-xl bg-qviolet/10 border border-qviolet/40 text-qviolet flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-orbitron font-bold text-white">Apa itu Cisco?</h3>
+                        <p class="text-xs text-qviolet font-mono">Standar Industri Enterprise Network Global</p>
+                    </div>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    <strong class="text-white">Cisco</strong> adalah standar industri teknologi jaringan global terbesar untuk skala gedung/perusahaan besar (<strong class="text-qviolet">Enterprise</strong>). Berfokus pada keandalan tinggi switch, router kelas atas, dan protokol kompleks.
+                </p>
+                <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5 text-xs text-slate-300">
+                    <div class="text-qviolet font-mono font-bold">// FUNGSI UTAMA YANG SAYA PELAJARI:</div>
+                    <p>• Membagi jalur jaringan menjadi beberapa grup terpisah yang aman menggunakan <strong class="text-white">VLAN</strong>.</p>
+                    <p>• Menghubungkan antar-VLAN melalui proses <strong class="text-white">Inter-VLAN Routing (Trunking)</strong>.</p>
+                    <p>• Mengatur rute pengiriman data otomatis dan efisien dengan routing dinamis <strong class="text-white">OSPF</strong>.</p>
+                </div>
+            </div>
+
+            <!-- 3. Debian Linux -->
+            <div class="holo-card holo-card-emerald rounded-2xl p-6 space-y-4 border-qemerald/30">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+                    <div class="w-12 h-12 rounded-xl bg-qemerald/10 border border-qemerald/40 text-qemerald flex items-center justify-center text-2xl">
+                        <i class="fa-brands fa-linux"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-orbitron font-bold text-white">Apa itu Debian Server?</h3>
+                        <p class="text-xs text-qemerald font-mono">Sistem Operasi Server Open-Source Stabil</p>
+                    </div>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    <strong class="text-white">Debian Linux</strong> adalah sistem operasi open-source yang sangat terkenal karena ketahanan, keamanan, dan kestabilannya saat digunakan sebagai pusat komputer server penyedia layanan internet.
+                </p>
+                <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5 text-xs text-slate-300">
+                    <div class="text-qemerald font-mono font-bold">// LAYANAN SERVER YANG SAYA KONFIGURASI:</div>
+                    <p>• <strong class="text-white">SSH Remote</strong>: Mengendalikan server dari jarak jauh tanpa layar monitor fisik.</p>
+                    <p>• <strong class="text-white">FTP Server</strong>: Menyediakan tempat penyimpanan & pengiriman file terpusat.</p>
+                    <p>• <strong class="text-white">Web Server</strong>: Menampilkan halaman situs web agar dapat diakses pengguna di jaringan.</p>
+                </div>
+            </div>
+
+            <!-- 4. Media Fisik & CCTV -->
+            <div class="holo-card rounded-2xl p-6 space-y-4 border-qamber/30">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+                    <div class="w-12 h-12 rounded-xl bg-qamber/10 border border-qamber/40 text-qamber flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-plug-circle-bolt"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-orbitron font-bold text-white">Media Fisik & CCTV?</h3>
+                        <p class="text-xs text-qamber font-mono">Pengabelan LAN, Coaxial & Sistem Kamera Security</p>
+                    </div>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Jaringan tidak akan berjalan tanpa fondasi kabel fisik dan keamanan tempat yang baik. Kabel fisik mentransmisikan sinyal listrik/data, sementara CCTV menjaga keamanan lingkungan kerja secara terintegrasi.
+                </p>
+                <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5 text-xs text-slate-300">
+                    <div class="text-qamber font-mono font-bold">// PENGERJAAN FISIK YANG SAYA KUASAI:</div>
+                    <p>• <strong class="text-white">Kabel UTP (LAN)</strong>: Pengerimpingan RJ-45 standar Straight dan Crossover.</p>
+                    <p>• <strong class="text-white">Kabel Coaxial</strong>: Perakitan konektor BNC untuk hantaran video analog.</p>
+                    <p>• <strong class="text-white">Sistem CCTV</strong>: Pemasangan IP Camera, DVR/NVR, dan konfigurasi rekaman.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. BERANDA KEAHLIAN PRAKTIS (KURSOR INTERAKTIF & MODAL POPUP) -->
+    <section id="keahlian" class="py-16 max-w-6xl mx-auto px-4 relative z-10 space-y-8">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+            <span class="text-qcyan text-xs font-mono font-bold tracking-widest uppercase">// PRACTICAL SKILLS MATRIX</span>
+            <h2 class="text-3xl font-orbitron font-extrabold text-white">Keahlian Praktis Saya</h2>
+            <p class="text-slate-400 text-sm">
+                Pilih filter di bawah atau klik kartu untuk melihat detail pengerjaan praktis:
+            </p>
+        </div>
+
+        <!-- Category Filter Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-2 font-mono text-xs">
+            <button onclick="filterSkills('all')" id="tab-btn-all" class="skill-tab-btn active px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:border-qcyan transition-all">Semua Keahlian</button>
+            <button onclick="filterSkills('mikrotik')" id="tab-btn-mikrotik" class="skill-tab-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:border-qcyan transition-all">MikroTik</button>
+            <button onclick="filterSkills('cisco')" id="tab-btn-cisco" class="skill-tab-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:border-qcyan transition-all">Cisco OSPF</button>
+            <button onclick="filterSkills('debian')" id="tab-btn-debian" class="skill-tab-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:border-qcyan transition-all">Debian Server</button>
+            <button onclick="filterSkills('cctv')" id="tab-btn-cctv" class="skill-tab-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:border-qcyan transition-all">Fisik & CCTV</button>
+        </div>
+
+        <!-- Skills Grid Container -->
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <!-- Card 1: MikroTik -->
+            <div onclick="openSkillModal('mikrotik')" data-category="mikrotik" class="skill-card holo-card rounded-2xl p-6 cursor-pointer group space-y-4 border-qcyan/30 hover:border-qcyan transition-all">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-qcyan/10 border border-qcyan text-qcyan flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-router"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-orbitron font-bold text-white group-hover:text-qcyan transition-colors">MikroTik Routing & Hotspot</h3>
+                            <span class="text-[11px] font-mono text-slate-400">RouterOS Setup</span>
+                        </div>
+                    </div>
+                    <span class="text-[10px] font-mono px-2 py-1 rounded bg-qcyan/10 text-qcyan border border-qcyan/30">DETAIL</span>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Mampu mengambil jaringan ISP (DHCP Client/PPPoE), membagikan IP DHCP Server ke lokal, membuat sistem voucher Hotspot, dan konfigurasi Routing BGP.
+                </p>
+                <div class="flex flex-wrap gap-2 text-[10px] font-mono text-qcyan">
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#ISP Gateway</span>
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#Hotspot Voucher</span>
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#Wireless AP</span>
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#BGP Routing</span>
+                </div>
+            </div>
+
+            <!-- Card 2: Cisco -->
+            <div onclick="openSkillModal('cisco')" data-category="cisco" class="skill-card holo-card holo-card-violet rounded-2xl p-6 cursor-pointer group space-y-4 border-qviolet/30 hover:border-qviolet transition-all">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-qviolet/10 border border-qviolet text-qviolet flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-orbitron font-bold text-white group-hover:text-qviolet transition-colors">Cisco Topologi & OSPF Routing</h3>
+                            <span class="text-[11px] font-mono text-slate-400">IOS Configuration</span>
+                        </div>
+                    </div>
+                    <span class="text-[10px] font-mono px-2 py-1 rounded bg-qviolet/10 text-qviolet border border-qviolet/30">DETAIL</span>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Merancang perancangan topologi enterprise skala menengah, pembagian VLAN Trunking 802.1Q, Inter-VLAN Routing, serta Dynamic OSPF Routing.
+                </p>
+                <div class="flex flex-wrap gap-2 text-[10px] font-mono text-qviolet">
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#Topologi Enterprise</span>
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#VLAN Trunking</span>
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#OSPF Multi-Area</span>
+                </div>
+            </div>
+
+            <!-- Card 3: Debian Server -->
+            <div onclick="openSkillModal('debian')" data-category="debian" class="skill-card holo-card holo-card-emerald rounded-2xl p-6 cursor-pointer group space-y-4 border-qemerald/30 hover:border-qemerald transition-all">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-qemerald/10 border border-qemerald text-qemerald flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-linux"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-orbitron font-bold text-white group-hover:text-qemerald transition-colors">Debian Linux SysAdmin</h3>
+                            <span class="text-[11px] font-mono text-slate-400">Server Deployment</span>
+                        </div>
+                    </div>
+                    <span class="text-[10px] font-mono px-2 py-1 rounded bg-qemerald/10 text-qemerald border border-qemerald/30">DETAIL</span>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Instalasi OS Debian 12 text-mode, pengamanan akses remote SSH, repositori FTP Server terpusat (vsftpd), dan penggelaran Webserver Apache/Nginx.
+                </p>
+                <div class="flex flex-wrap gap-2 text-[10px] font-mono text-qemerald">
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#Debian 12</span>
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#SSH Hardening</span>
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#FTP Server</span>
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#Web Server</span>
+                </div>
+            </div>
+
+            <!-- Card 4: CCTV & Cable Physical -->
+            <div onclick="openSkillModal('cctv')" data-category="cctv" class="skill-card holo-card rounded-2xl p-6 cursor-pointer group space-y-4 border-qamber/30 hover:border-qamber transition-all">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-qamber/10 border border-qamber text-qamber flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-plug-circle-bolt"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-orbitron font-bold text-white group-hover:text-qamber transition-colors">Pengabelan Fisik & IP CCTV</h3>
+                            <span class="text-[11px] font-mono text-slate-400">Physical Wiring</span>
+                        </div>
+                    </div>
+                    <span class="text-[10px] font-mono px-2 py-1 rounded bg-qamber/10 text-qamber border border-qamber/30">DETAIL</span>
+                </div>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Crimping kabel LAN UTP (Straight & Cross), perakitan konektor BNC kabel Coaxial, serta instalasi dan penyetelan jaringan IP CCTV terintegrasi.
+                </p>
+                <div class="flex flex-wrap gap-2 text-[10px] font-mono text-qamber">
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#LAN Straight/Cross</span>
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#Coaxial BNC</span>
+                    <span class="px-2 py-1 rounded bg-slate-950 border border-slate-800">#IP Camera CCTV</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. ORGANISASI & EKSTRAKURIKULER -->
+    <section id="organisasi" class="py-16 max-w-6xl mx-auto px-4 relative z-10 space-y-8">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+            <span class="text-qcyan text-xs font-mono font-bold tracking-widest uppercase">// LEADERSHIP & DISCIPLINE</span>
+            <h2 class="text-3xl font-orbitron font-extrabold text-white">Organisasi & Ekstrakurikuler</h2>
+            <p class="text-slate-400 text-sm">
+                Pengalaman non-akademis yang melatih karakter fisik, mental, kedisiplinan, dan jiwa kepemimpinan saya:
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <!-- PASKIBRA Card -->
+            <div class="holo-card rounded-2xl p-6 sm:p-8 space-y-5 border-qcyan/30">
+                <div class="flex items-center gap-4 border-b border-slate-800 pb-4">
+                    <div class="w-12 h-12 rounded-xl bg-qcyan/10 border border-qcyan text-qcyan flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-flag"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-orbitron font-bold text-white">PASKIBRA</h3>
+                        <p class="text-xs text-qcyan font-mono">Pasukan Pengibar Bendera</p>
+                    </div>
+                </div>
+
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Aktif dalam kegiatan Paskibra telah membentuk mental ketahanan fisik yang kuat, presisi dalam pergerakan PBB, rasa solidaritas tinggi antar sesama anggota, serta pembentukan sikap mental pantang menyerah.
+                </p>
+
+                <div class="space-y-2 text-xs font-mono">
+                    <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex items-center gap-2 text-slate-300">
+                        <i class="fa-solid fa-check-double text-qcyan"></i>
+                        <span>Melatih Kedisiplinan Tinggi & Ketepatan Waktu</span>
+                    </div>
+                    <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex items-center gap-2 text-slate-300">
+                        <i class="fa-solid fa-check-double text-qcyan"></i>
+                        <span>Ketahanan Fisik, Mental, dan Kerja Sama Presisi</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OSIS Card -->
+            <div class="holo-card holo-card-violet rounded-2xl p-6 sm:p-8 space-y-5 border-qviolet/30">
+                <div class="flex items-center gap-4 border-b border-slate-800 pb-4">
+                    <div class="w-12 h-12 rounded-xl bg-qviolet/10 border border-qviolet text-qviolet flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-users-gear"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-orbitron font-bold text-white">OSIS</h3>
+                        <p class="text-xs text-qviolet font-mono">Organisasi Siswa Intra Sekolah</p>
+                    </div>
+                </div>
+
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Menjadi bagian dari pengurus OSIS melatih kemampuan manajemen program sekolah, berkomunikasi publik secara efektif dengan guru dan pihak luar, serta mengasah tanggung jawab kepemimpinan acara.
+                </p>
+
+                <div class="space-y-2 text-xs font-mono">
+                    <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex items-center gap-2 text-slate-300">
+                        <i class="fa-solid fa-check-double text-qviolet"></i>
+                        <span>Manajemen Program Acara & Kerja Sama Tim Event</span>
+                    </div>
+                    <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex items-center gap-2 text-slate-300">
+                        <i class="fa-solid fa-check-double text-qviolet"></i>
+                        <span>Komunikasi Efektif Antar-Siswa, Guru, dan Pihak Luar</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 7. EVALUASI DIRI (KELEBIHAN, KEKURANGAN & MITIGASI TOGGLE INTERAKTIF) -->
+    <section id="evaluasi" class="py-16 max-w-6xl mx-auto px-4 relative z-10 space-y-8">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+            <span class="text-qcyan text-xs font-mono font-bold tracking-widest uppercase">// HONEST SELF EVALUATION</span>
+            <h2 class="text-3xl font-orbitron font-extrabold text-white">Evaluasi Kelebihan & Kekurangan</h2>
+            <p class="text-slate-400 text-sm">
+                Refleksi jujur mengenai potensi karakter saya beserta solusi konkret mitigasi kekurangan:
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <!-- KELEBIHAN -->
+            <div class="holo-card holo-card-emerald rounded-2xl p-6 sm:p-8 space-y-6 border-qemerald/40">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+                    <div class="w-10 h-10 rounded-xl bg-qemerald/10 border border-qemerald text-qemerald flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-orbitron font-bold text-white">Kelebihan Saya</h3>
+                        <p class="text-xs text-qemerald font-mono">Potensi Kerja & Modal Karakter</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
+                        <div class="text-qemerald font-bold text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> Mampu Beradaptasi dengan Cepat
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed">
+                            Cepat menyesuaikan diri dengan lingkungan baru, perangkat keras baru, serta pembaruan versi OS Linux maupun RouterOS.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
+                        <div class="text-qemerald font-bold text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> Mampu Bekerja di Bawah Tekanan
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed">
+                            Tetap fokus dan terarah saat mendapati masalah jaringan down (*troubleshooting*) maupun tenggat waktu pengerjaan yang mendesak.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1">
+                        <div class="text-qemerald font-bold text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> Mampu Bekerja Sama Dalam Tim
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed">
+                            Komunikatif, siap membagi tugas teknis, dan kompak berkolaborasi dengan rekan tim demi mencapai target bersama.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KEKURANGAN + MITIGASI TOGGLE INTERAKTIF -->
+            <div class="holo-card holo-card-rose rounded-2xl p-6 sm:p-8 space-y-6 border-qrose/40">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+                    <div class="w-10 h-10 rounded-xl bg-qrose/10 border border-qrose text-qrose flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-orbitron font-bold text-white">Kekurangan & Solusi Mitigasi</h3>
+                        <p class="text-xs text-qrose font-mono">Klik tombol untuk melihat solusi konkret:</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    
+                    <!-- Weakness 1 -->
+                    <div class="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-qrose font-bold text-sm"><i class="fa-solid fa-circle-xmark me-1"></i> 1. Mudah Lupa</span>
+                            <button onclick="toggleMitigation('mit-1')" class="text-[10px] font-mono px-2 py-1 rounded bg-qrose/20 text-qrose border border-qrose/30 hover:bg-qrose hover:text-slate-950 transition-all">Lihat Solusi</button>
+                        </div>
+                        <div id="mit-1" class="hidden p-3 rounded bg-slate-900 border-l-2 border-qcyan text-xs text-slate-300 space-y-1 mt-2">
+                            <div class="text-qcyan font-bold font-mono text-[11px]">// SOLUSI MITIGASI KONKRET:</div>
+                            <p>Selalu membuat catatan teknis (*documentation/cheat sheet*), menggambar diagram topologi sebelum konfigurasi, dan melakukan pelabelan (*labeling*) kabel/port secara rapi.</p>
+                        </div>
+                    </div>
+
+                    <!-- Weakness 2 -->
+                    <div class="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-qrose font-bold text-sm"><i class="fa-solid fa-circle-xmark me-1"></i> 2. Emosional</span>
+                            <button onclick="toggleMitigation('mit-2')" class="text-[10px] font-mono px-2 py-1 rounded bg-qrose/20 text-qrose border border-qrose/30 hover:bg-qrose hover:text-slate-950 transition-all">Lihat Solusi</button>
+                        </div>
+                        <div id="mit-2" class="hidden p-3 rounded bg-slate-900 border-l-2 border-qamber text-xs text-slate-300 space-y-1 mt-2">
+                            <div class="text-qamber font-bold font-mono text-[11px]">// SOLUSI MITIGASI KONKRET:</div>
+                            <p>Belajar mengambil jeda rehat sejenak saat menghadapi error rumit (*deadlock*), menjaga kepala dingin, dan berfokus pada logika pemecahan masalah secara terstruktur.</p>
+                        </div>
+                    </div>
+
+                    <!-- Weakness 3 -->
+                    <div class="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-qrose font-bold text-sm"><i class="fa-solid fa-circle-xmark me-1"></i> 3. Sangat Membutuhkan Bimbingan</span>
+                            <button onclick="toggleMitigation('mit-3')" class="text-[10px] font-mono px-2 py-1 rounded bg-qrose/20 text-qrose border border-qrose/30 hover:bg-qrose hover:text-slate-950 transition-all">Lihat Solusi</button>
+                        </div>
+                        <div id="mit-3" class="hidden p-3 rounded bg-slate-900 border-l-2 border-qemerald text-xs text-slate-300 space-y-1 mt-2">
+                            <div class="text-qemerald font-bold font-mono text-[11px]">// SOLUSI MITIGASI KONKRET:</div>
+                            <p>Proaktif bertanya kepada guru/mentor, mencatat instruksi dengan rinci, serta terus berlatih mandiri di rumah agar perlahan lebih independen.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 8. PROFIL SMKN 54 JAKARTA PUSAT -->
+    <section id="smkn54" class="py-16 max-w-6xl mx-auto px-4 relative z-10">
+        <div class="holo-card rounded-2xl p-6 sm:p-10 border-qviolet/40 space-y-6">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-qviolet/10 border border-qviolet text-qviolet flex items-center justify-center text-3xl">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-orbitron font-extrabold text-white">SMKN 54 Jakarta Pusat</h2>
+                        <p class="text-xs text-qviolet font-mono">Sekolah Menengah Kejuruan Vokasi TKJ Unggulan</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1.5 rounded-full bg-qviolet/20 text-qviolet border border-qviolet/30 font-mono text-xs font-bold">
+                    DKI JAKARTA
+                </span>
+            </div>
+
+            <p class="text-slate-300 text-sm leading-relaxed">
+                <strong class="text-white">SMK Negeri 54 Jakarta Pusat</strong> adalah institusi pendidikan kejuruan yang berkomitmen mencetak generasi ahli muda berkarakter di bidang teknologi informasi. Melalui jurusan <strong class="text-qviolet">Teknik Komputer dan Jaringan (TKJ)</strong>, sekolah memberikan fasilitas laboratorium komputer modern, kurikulum praktek yang relevan dengan kebutuhan industri, serta guru pembimbing yang berdedikasi tinggi untuk menggembleng keahlian para siswa.
+            </p>
+
+            <div class="grid sm:grid-cols-3 gap-4 font-mono text-xs">
+                <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                    <div class="text-slate-500 text-[10px]">PROGRAM KEAHLIAN</div>
+                    <div class="text-white font-bold mt-1">TKJ (Teknik Komputer & Jaringan)</div>
+                </div>
+                <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                    <div class="text-slate-500 text-[10px]">LOKASI WILAYAH</div>
+                    <div class="text-qcyan font-bold mt-1">Jakarta Pusat, Indonesia</div>
+                </div>
+                <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                    <div class="text-slate-500 text-[10px]">FOKUS PEMBELAJARAN</div>
+                    <div class="text-qemerald font-bold mt-1">Infrastruktur, Network & Server</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. KONTAK & FORM MESSENGER -->
+    <section id="kontak" class="py-16 max-w-6xl mx-auto px-4 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-5 space-y-6">
+                <div>
+                    <span class="text-qcyan text-xs font-mono font-bold tracking-widest uppercase">// CONNECT WITH ME</span>
+                    <h2 class="text-3xl font-orbitron font-extrabold text-white mt-1">Hubungi Saya</h2>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Tertarik berdiskusi mengenai proyek jaringan, administrasi server, atau ingin menyampaikan tanggapan? Silakan kirimkan pesan langsung melalui email resmi saya di bawah ini:
+                </p>
+
+                <div class="space-y-3 font-mono text-xs">
+                    <div class="flex items-center gap-3 p-4 rounded-xl holo-card border-slate-800">
+                        <div class="w-10 h-10 rounded-lg bg-qcyan/10 text-qcyan flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-slate-400">EMAIL RESMI</div>
+                            <a href="mailto:wazzboys07@gmail.com" class="text-white font-bold hover:text-qcyan transition-colors text-sm">
+                                wazzboys07@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-4 rounded-xl holo-card border-slate-800">
+                        <div class="w-10 h-10 rounded-lg bg-qviolet/10 text-qviolet flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-slate-400">DOMISILI</div>
+                            <div class="text-white font-bold">Jakarta Pusat, Indonesia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Form Card -->
+            <div class="lg:col-span-7">
+                <div class="holo-card rounded-2xl p-6 sm:p-8 border-qcyan/30 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h3 class="text-lg font-orbitron font-bold text-white">Kirim Pesan Langsung</h3>
+                        <span class="text-[10px] font-mono text-qcyan"><i class="fa-solid fa-paper-plane me-1"></i> DIRECT TRANSMISSION</span>
+                    </div>
+
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4 text-xs font-mono">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-slate-400 mb-1">// NAMA PENGIRIM</label>
+                                <input type="text" id="form-name" required placeholder="Nama Anda" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-qcyan transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 mb-1">// EMAIL BALASAN</label>
+                                <input type="email" id="form-email" required placeholder="nama@domain.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-qcyan transition-all">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-400 mb-1">// SUBJEK PESAN</label>
+                            <input type="text" id="form-subject" required placeholder="Contoh: Diskusi Jaringan / Tawaran Proyek" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-qcyan transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-400 mb-1">// ISI PESAN</label>
+                            <textarea id="form-message" rows="4" required placeholder="Tuliskan pesan Anda secara jelas di sini..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-qcyan transition-all"></textarea>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div id="form-progress-box" class="hidden space-y-1">
+                            <div class="flex justify-between text-[10px] text-qcyan">
+                                <span>MENGIRIM PESAN DOKUMEN...</span>
+                                <span id="form-progress-text">0%</span>
+                            </div>
+                            <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
+                                <div id="form-progress-bar" class="bg-qcyan h-full w-0 transition-all duration-100"></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="form-btn" class="w-full py-3.5 rounded-xl bg-qcyan text-slate-950 font-orbitron font-extrabold text-xs tracking-wider hover:brightness-110 shadow-[0_0_20px_rgba(0,240,255,0.3)] transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> KIRIM PESAN KE WAZZBOYS07@GMAIL.COM
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 text-xs font-mono text-slate-400 relative z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-qemerald animate-pulse"></span>
+                <span>&copy; 2026 Ahmad Fawwaz Al-Fatih // SMKN 54 JAKARTA PUSAT</span>
+            </div>
+            <div class="text-qcyan">
+                [ MIKROTIK // CISCO OSPF // DEBIAN LINUX // CCTV ]
+            </div>
+        </div>
+    </footer>
+
+    <!-- SKILL & EDUCATION MODAL POPUP -->
+    <div id="app-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
+        <div class="holo-card rounded-2xl max-w-xl w-full p-6 sm:p-8 space-y-6 relative border-qcyan shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-900 border border-slate-700 text-slate-400 hover:text-white hover:border-qcyan transition-all flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modal-header-box" class="flex items-center gap-3 border-b border-slate-800 pb-4">
+                <!-- Dynamic Header -->
+            </div>
+
+            <div id="modal-body-box" class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <!-- Dynamic Content -->
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-qcyan font-mono text-xs hover:border-qcyan transition-all">
+                    Tutup Modal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST POPUP NOTIFICATION -->
+    <div id="toast-notif" class="fixed bottom-6 right-6 z-50 hidden holo-card p-4 rounded-xl border-qemerald shadow-[0_0_25px_rgba(16,185,129,0.3)] flex items-center gap-3 text-xs text-white">
+        <div class="w-8 h-8 rounded-lg bg-qemerald text-slate-950 flex items-center justify-center font-bold text-base">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <div class="font-bold text-qemerald" id="toast-title">Pesan Terkirim!</div>
+            <div class="text-slate-300 text-[11px]" id="toast-desc">Pesan Anda telah berhasil disampaikan.</div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        // 1. WEB AUDIO SYNTHESIZER
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let soundEnabled = true;
+
+        function toggleAudioEngine() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('sound-icon');
+            const text = document.getElementById('sound-status-text');
+
+            if (soundEnabled) {
+                icon.className = 'fa-solid fa-volume-high text-qemerald';
+                text.innerText = 'SFX: ON';
+                triggerAudio('success');
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-slate-500';
+                text.innerText = 'SFX: OFF';
+            }
+        }
+
+        function triggerAudio(type) {
+            if (!soundEnabled) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, now);
+                osc.frequency.exponentialRampToValueAtTime(400, now + 0.04);
+                gain.gain.setValueAtTime(0.06, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                osc.start(now);
+                osc.stop(now + 0.04);
+            } else if (type === 'success') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(659.25, now + 0.08);
+                osc.frequency.setValueAtTime(783.99, now + 0.16);
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+                osc.start(now);
+                osc.stop(now + 0.28);
+            }
+        }
+
+        // 2. CANVAS PARTICLE NETWORK
+        const canvas = document.getElementById('quantum-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 1.5 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 40; i++) particles.push(new Particle());
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, idx) => {
+                p.update();
+                p.draw();
+                for (let j = idx + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${1 - dist / 120 * 0.15})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // 3. SKILL TAB FILTER
+        function filterSkills(category) {
+            triggerAudio('click');
+            document.querySelectorAll('.skill-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-btn-${category}`).classList.add('active');
+
+            const cards = document.querySelectorAll('.skill-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 4. WEAKNESS MITIGATION TOGGLE
+        function toggleMitigation(id) {
+            triggerAudio('click');
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('hidden');
+        }
+
+        // 5. MODALS DATA FOR EDUCATION AND SKILLS
+        const eduData = {
+            sd: {
+                title: "SDN Warakas 07",
+                subtitle: "Masa Pembentukan Karakter Awal",
+                icon: "fa-school-flag",
+                color: "text-blue-400",
+                content: `
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-blue-400 block mb-1">Landasan Akademis Dasar:</strong>
+                            <p class="text-slate-300">Menempa kemampuan membaca, berhitung, pemahaman dasar sains, serta etika kedisiplinan sejak dini.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-blue-400 block mb-1">Pelajaran Moral & Sosialisasi:</strong>
+                            <p class="text-slate-300">Belajar berinteraksi aktif dalam kelompok, membangun rasa empati, jujur, serta patuh pada tata tertib sekolah.</p>
+                        </div>
+                    </div>
+                `
+            },
+            smp: {
+                title: "SMPN 129 Jakarta",
+                subtitle: "Eksplorasi Minat Teknologi & Organisasi",
+                icon: "fa-book-bookmark",
+                color: "text-qviolet",
+                content: `
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qviolet block mb-1">Awal Pengenalan Dunia Komputer:</strong>
+                            <p class="text-slate-300">Mulai tertarik dengan logis Komputer, pengoperasian software dasar, serta cara kerja internet.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qviolet block mb-1">Eksplorasi Kegiatan Ekstrakurikuler:</strong>
+                            <p class="text-slate-300">Aktif bersosialisasi dan melatih minat berorganisasi sebelum memasuki kejuruan vokasi.</p>
+                        </div>
+                    </div>
+                `
+            },
+            smk: {
+                title: "SMKN 54 Jakarta Pusat",
+                subtitle: "Fokus Vokasi: Teknik Komputer dan Jaringan",
+                icon: "fa-laptop-code",
+                color: "text-qemerald",
+                content: `
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qemerald block mb-1">Spesialisasi Infrastruktur Jaringan:</strong>
+                            <p class="text-slate-300">Menguasai MikroTik RouterOS (Gateway, Hotspot, BGP), Cisco Systems (OSPF, VLAN), dan Administrasi Debian Server.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qemerald block mb-1">Pengalaman Organisasi Unggulan:</strong>
+                            <p class="text-slate-300">Aktif dalam kedisiplinan Paskibra dan kepemimpinan OSIS untuk mengasah keahlian soft skills.</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        const skillData = {
+            mikrotik: {
+                title: "MikroTik RouterOS",
+                subtitle: "ISP Gateway, Hotspot & BGP Dynamic Routing",
+                icon: "fa-router",
+                color: "text-qcyan",
+                content: `
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qcyan block mb-1">1. Konfigurasi ISP Gateway:</strong>
+                            <p class="text-slate-300">Pengaturan DHCP Client pada interface WAN, pendistribusian IP DHCP Server ke jaringan lokal, NAT Masquerade, serta DNS Cache.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qcyan block mb-1">2. Hotspot Voucher & Bandwidth Management:</strong>
+                            <p class="text-slate-300">Pembuatan server Hotspot voucher, manajemen akun via User Manager, serta pembatasan kecepatan bandwidth via Simple Queue.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qcyan block mb-1">3. Dynamic BGP Routing:</strong>
+                            <p class="text-slate-300">Pertukaran prefix routing BGP antar Autonomous System (AS) untuk jalur hantaran jaringan skala luas.</p>
+                        </div>
+                    </div>
+                `
+            },
+            cisco: {
+                title: "Cisco Systems",
+                subtitle: "Topologi Enterprise, VLAN Trunking & OSPF Routing",
+                icon: "fa-network-wired",
+                color: "text-qviolet",
+                content: `
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qviolet block mb-1">1. Perancangan Topologi Cisco:</strong>
+                            <p class="text-slate-300">Merancang hirarki jaringan enterprise menggunakan Cisco Packet Tracer mencakup Core, Distribution, dan Access Layer.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qviolet block mb-1">2. Switching VLAN & Trunking:</strong>
+                            <p class="text-slate-300">Segmentasi VLAN, Trunking IEEE 802.1Q antar-switch, dan Inter-VLAN Routing metode Router-on-a-Stick.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qviolet block mb-1">3. Dynamic Routing OSPF:</strong>
+                            <p class="text-slate-300">Konfigurasi OSPF Area 0 (Backbone), penentuan Router ID, verifikasi LSA database, dan verifikasi tabel rute.</p>
+                        </div>
+                    </div>
+                `
+            },
+            debian: {
+                title: "Linux Debian Server",
+                subtitle: "SSH, FTP Repository & Web Server Deployment",
+                icon: "fa-linux",
+                color: "text-qemerald",
+                content: `
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qemerald block mb-1">1. Installation & Base Network Setup:</strong>
+                            <p class="text-slate-300">Instalasi OS Debian 12 text mode, alokasi IP Static pada interface networking, dan konfigurasi DNS resolver.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qemerald block mb-1">2. SSH Hardening & FTP vsftpd:</strong>
+                            <p class="text-slate-300">Pengamanan akses remote OpenSSH (kunci RSA) serta penggelaran repositori berkas terpusat vsftpd terisolasi.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qemerald block mb-1">3. Web Server Apache/Nginx:</strong>
+                            <p class="text-slate-300">Pemasangan Apache2/Nginx, pengaktifan VirtualHost multi-domain, serta publikasi file web.</p>
+                        </div>
+                    </div>
+                `
+            },
+            cctv: {
+                title: "Fisik, Cabling & CCTV",
+                subtitle: "Kabel UTP LAN, Coaxial BNC & IP Camera",
+                icon: "fa-plug-circle-bolt",
+                color: "text-qamber",
+                content: `
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qamber block mb-1">1. Crimping Kabel LAN UTP:</strong>
+                            <p class="text-slate-300">Pembuatan sambungan T568A dan T568B untuk urutan Straight-Through dan Crossover menggunakan tang crimping & LAN tester.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qamber block mb-1">2. Pemasangan Kabel Coaxial BNC:</strong>
+                            <p class="text-slate-300">Pengerimpingan konektor BNC / F-Type pada kabel RG59/RG6 untuk sinyal video analog CCTV.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <strong class="text-qamber block mb-1">3. IP Camera & NVR Configuration:</strong>
+                            <p class="text-slate-300">Perakitan IP Camera, penyetelan NVR/DVR storage recording, dan port forwarding untuk akses jaringan.</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function openEduModal(key) {
+            triggerAudio('click');
+            const data = eduData[key];
+            if (!data) return;
+            renderModal(data);
+        }
+
+        function openSkillModal(key) {
+            triggerAudio('click');
+            const data = skillData[key];
+            if (!data) return;
+            renderModal(data);
+        }
+
+        function renderModal(data) {
+            document.getElementById('modal-header-box').innerHTML = `
+                <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-700 ${data.color} flex items-center justify-center text-xl">
+                    <i class="fa-solid ${data.icon}"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-orbitron font-bold text-white">${data.title}</h3>
+                    <p class="text-xs ${data.color} font-mono">${data.subtitle}</p>
+                </div>
+            `;
+            document.getElementById('modal-body-box').innerHTML = data.content;
+            const modal = document.getElementById('app-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            triggerAudio('click');
+            const modal = document.getElementById('app-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // 6. CONTACT FORM SUBMISSION
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            triggerAudio('click');
+
+            const btn = document.getElementById('form-btn');
+            const progressBox = document.getElementById('form-progress-box');
+            const progressBar = document.getElementById('form-progress-bar');
+            const progressText = document.getElementById('form-progress-text');
+
+            btn.disabled = true;
+            progressBox.classList.remove('hidden');
+
+            let val = 0;
+            const timer = setInterval(() => {
+                val += 10;
+                progressBar.style.width = `${val}%`;
+                progressText.innerText = `${val}%`;
+
+                if (val >= 100) {
+                    clearInterval(timer);
+                    triggerAudio('success');
+
+                    document.getElementById('contact-form').reset();
+                    btn.disabled = false;
+                    progressBox.classList.add('hidden');
+
+                    showToast("Pesan Berhasil Terkirim!", "Pesan Anda telah berhasil dikirimkan ke wazzboys07@gmail.com");
+                }
+            }, 100);
+        }
+
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast-notif');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-desc').innerText = desc;
+
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 4000);
+        }
+    </script>
+</body>
+</html>
